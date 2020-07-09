@@ -46,24 +46,6 @@ package object avalanche {
       localDateFormat = DateTimeFormatter.ofPattern("uuuu-MM-dd"),
       localTimeFormat = DateTimeFormatter.ofPattern("HH:mm:ss.SSS"))
 
-  def columnTypeToAvalanche(ct: ColumnType.Scalar)
-      : ValidatedNel[ColumnType.Scalar, Fragment] =
-    ct match {
-      case ColumnType.Null => fr0"INTEGER1".validNel
-      case ColumnType.Boolean => fr0"BOOLEAN".validNel
-      case ColumnType.LocalTime => fr0"TIME(3)".validNel
-      case ColumnType.OffsetTime => fr0"TIME(3) WITH TIME ZONE".validNel
-      case ColumnType.LocalDate => fr0"ANSIDATE".validNel
-      case od @ ColumnType.OffsetDate => od.invalidNel
-      case ColumnType.LocalDateTime => fr0"TIMESTAMP(3)".validNel
-      case ColumnType.OffsetDateTime => fr0"TIMESTAMP(3) WITH TIME ZONE".validNel
-      // Avalanche supports intervals, but not ISO 8601 intervals, which is what
-      // Quasar produces
-      case i @ ColumnType.Interval => i.invalidNel
-      case ColumnType.Number => fr0"DECIMAL(33, 3)".validNel
-      case ColumnType.String => fr0"NVARCHAR(512)".validNel
-    }
-
   // Ingres accepts double quotes as part of identifiers, but they must
   // be repeated twice. So we duplicate all quotes
   // More details:

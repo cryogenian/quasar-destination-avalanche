@@ -74,13 +74,13 @@ object AvalancheType {
     def fragment = fr0"ANSIDATE"
   }
   final case class TIME(precision: Int, zoning: TimeZoning) extends AvalancheType {
-    def fragment = Fragment.const0(s"TIME(${precision})") ++ zoning.fragment
+    def fragment = Fragment.const(s"TIME(${precision})") ++ zoning.fragment
   }
   final case class TIMESTAMP(precision: Int, zoning: TimeZoning) extends AvalancheType {
-    def fragment = Fragment.const0(s"TIMESTAMP(${precision})") ++ zoning.fragment
+    def fragment = Fragment.const(s"TIMESTAMP(${precision})") ++ zoning.fragment
   }
   final case class INTERVAL_DAY(precision: Int) extends AvalancheType {
-    def fragment = Fragment.const0(s"INTERVAL DAY TO SECOND(${precision})")
+    def fragment = Fragment.const(s"INTERVAL DAY TO SECOND(${precision})")
   }
   final case object INTERVAL_YEAR extends AvalancheType {
     def fragment = fr0"INTERVAL YEAR TO DAY"
