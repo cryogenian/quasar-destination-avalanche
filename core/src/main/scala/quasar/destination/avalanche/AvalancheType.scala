@@ -44,10 +44,10 @@ object AvalancheType {
 
   // Avalanche NCHAR and NVARCHAR are the same as CHAR and VARCHAR
   final case class NCHAR(size: Int) extends AvalancheType {
-    def fragment = fr0"NCHAR(${size})"
+    def fragment = Fragment.const0(s"NCHAR(${size})")
   }
   final case class NVARCHAR(size: Int) extends AvalancheType {
-    def fragment = fr0"NVARCHAR(${size})"
+    def fragment = Fragment.const0(s"NVARCHAR(${size})")
   }
   final case object INTEGER1 extends AvalancheType {
     def fragment = fr0"INTEGER1"
@@ -62,7 +62,7 @@ object AvalancheType {
     def fragment = fr0"INTEGER8"
   }
   final case class DECIMAL(precision: Int, scale: Int) extends AvalancheType {
-    def fragment = fr0"DECIMAL(${precision}, ${scale})"
+    def fragment = Fragment.const0(s"DECIMAL(${precision}, ${scale})")
   }
   final case object FLOAT4 extends AvalancheType {
     def fragment = fr0"FLOAT4"
@@ -74,13 +74,13 @@ object AvalancheType {
     def fragment = fr0"ANSIDATE"
   }
   final case class TIME(precision: Int, zoning: TimeZoning) extends AvalancheType {
-    def fragment = fr0"TIME(${precision})" ++ zoning.fragment
+    def fragment = Fragment.const0(s"TIME(${precision})") ++ zoning.fragment
   }
   final case class TIMESTAMP(precision: Int, zoning: TimeZoning) extends AvalancheType {
-    def fragment = fr0"TIMESTAMP(${precision})" ++ zoning.fragment
+    def fragment = Fragment.const0(s"TIMESTAMP(${precision})") ++ zoning.fragment
   }
   final case class INTERVAL_DAY(precision: Int) extends AvalancheType {
-    def fragment = fr0"INTERVAL DAY TO SECOND(${precision})"
+    def fragment = Fragment.const0(s"INTERVAL DAY TO SECOND(${precision})")
   }
   final case object INTERVAL_YEAR extends AvalancheType {
     def fragment = fr0"INTERVAL YEAR TO DAY"
